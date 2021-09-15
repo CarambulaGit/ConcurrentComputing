@@ -1,166 +1,141 @@
 ﻿using System;
-using static lab3.Lab3;
+using static Lab3.Lab3;
 
-namespace lab3
-{
-    public class Matrix
-    {
+namespace Lab3 {
+    public class Matrix {
+        private int[,] _matr;
 
-        public Matrix(int N)
-        {
-            Random r = new Random();
-            grid = new long[N, N];
-            for (int i = 0; i < N; ++i)
-                for (int k = 0; k < N; ++k)
-                    grid[i, k] = r.Next(20);
-        }
-
-        public void FillMatrixWithNumber(int number)
-        {
-            for (var i = 0; i < N; i++)
-            {
-                for (var j = 0; j < N; j++)
-                {
-                    grid[i, j] = number;
+        public Matrix(int n) {
+            var r = new Random();
+            _matr = new int[n, n];
+            for (var i = 0; i < n; i++) {
+                for (var j = 0; j < n; j++) {
+                    _matr[i, j] = r.Next(20);
                 }
             }
         }
 
-        public Matrix(long[,] grid)
-        {
-            this.grid = (long[,])
-            grid.Clone();
+        public Matrix(int[,] arr) {
+            _matr = (int[,]) arr.Clone();
         }
 
-        public long get(int i, int k)
-        {
-            return grid[i, k];
+        public void FillMatrixWithNumber(int number) {
+            for (var i = 0; i < N; i++) {
+                for (var j = 0; j < N; j++) {
+                    _matr[i, j] = number;
+                }
+            }
         }
 
-        private long[,] grid;
-
-        public int getSize()
-        {
-            return grid.GetLength(0);
+        public int GetElem(int i, int j) {
+            return _matr[i, j];
         }
 
-        public Matrix multiply(Matrix m)
-        {
-            int N = getSize();
-            long[,] newGrid = new long[N, N];
-            for (int i = 0; i < N; ++i)
-            {
-                for (int k = 0; k < N; ++k)
-                {
-                    newGrid[i, k] = 0;
-                    for (int j = 0; j < N; ++j)
-                    {
-                        newGrid[i, k] += grid[i, j] * m.get(j, k);
+        public int GetSize() {
+            return _matr.GetLength(0);
+        }
+
+        public Matrix Multiply(Matrix m) {
+            var n = GetSize();
+            var matr = new int[n, n];
+            for (var i = 0; i < n; ++i) {
+                for (var j = 0; j < n; ++j) {
+                    matr[i, j] = 0;
+                    for (var k = 0; k < n; ++k) {
+                        matr[i, j] += _matr[i, k] * m.GetElem(k, j);
                     }
                 }
             }
-            return new Matrix(newGrid);
+
+            return new Matrix(matr);
         }
 
-        public Vector multiply(Vector v)
-        {
-            int N = getSize();
-            long[] newGrid = new long[N];
-            for (int i = 0; i < N; ++i)
-            {
-                newGrid[i] = 0;
-                for (int k = 0; k < N; ++k)
-                {
-                    newGrid[i] += v.get(k) * grid[i, k];
+        public Vector Multiply(Vector v) {
+            var n = GetSize();
+            var matr = new int[n];
+            for (var i = 0; i < n; ++i) {
+                matr[i] = 0;
+                for (var j = 0; j < n; ++j) {
+                    matr[i] += v.GetElem(i) * _matr[i, j];
                 }
             }
-            return new Vector(newGrid);
+
+            return new Vector(matr);
         }
 
-        public Matrix multiply(long a)
-        {
-            int N = getSize();
-            long[,] newGrid = new long[N, N];
-            for (int i = 0; i < N; ++i)
-            {
-                for (int k = 0; k < N; ++k)
-                {
-                    newGrid[i, k] = grid[i, k] * a;
+        public Matrix Multiply(int a) {
+            var n = GetSize();
+            var matr = new int[n, n];
+            for (var i = 0; i < n; ++i) {
+                for (var j = 0; j < n; ++j) {
+                    matr[i, j] = _matr[i, j] * a;
                 }
             }
-            return new Matrix(newGrid);
+
+            return new Matrix(matr);
         }
 
-        public Matrix sum(Matrix m)
-        {
-            int N = getSize();
-            long[,] newGrid = new long[N, N];
-            for (int i = 0; i < N; ++i)
-            {
-                for (int k = 0; k < N; ++k)
-                {
-                    newGrid[i, k] = grid[i, k] + m.get(i, k);
+        public Matrix Sum(Matrix m) {
+            var n = GetSize();
+            var matr = new int[n, n];
+            for (var i = 0; i < n; ++i) {
+                for (var j = 0; j < n; ++j) {
+                    matr[i, j] = _matr[i, j] + m.GetElem(i, j);
                 }
             }
-            return new Matrix(newGrid);
+
+            return new Matrix(matr);
         }
 
-        public Matrix sub(Matrix m)
-        {
-            int N = getSize();
-            long[,] newGrid = new long[N, N];
-            for (int i = 0; i < N; ++i)
-            {
-                for (int k = 0; k < N; ++k)
-                {
-                    newGrid[i, k] = grid[i, k] - m.get(i, k);
+        public Matrix Sub(Matrix m) {
+            var n = GetSize();
+            var matr = new int[n, n];
+            for (var i = 0; i < n; ++i) {
+                for (var j = 0; j < n; ++j) {
+                    matr[i, j] = _matr[i, j] - m.GetElem(i, j);
                 }
             }
-            return new Matrix(newGrid);
+
+            return new Matrix(matr);
         }
 
-        public long min()
-        {
-            long res = grid[0, 0];
-            int N = getSize();
-            for (int i = 0; i < N; ++i)
-            {
-                for (int k = 0; k < N; ++k)
-                {
-                    if (res < grid[i, k])
-                        res = grid[i, k];
+        public int Min() {
+            var res = _matr[0, 0];
+            var n = GetSize();
+            for (var i = 0; i < n; ++i) {
+                for (var j = 0; j < n; ++j) {
+                    if (res < _matr[i, j])
+                        res = _matr[i, j];
                 }
             }
+
             return res;
         }
 
-        public long max()
-        {
-            long res = grid[0, 0];
-            int N = getSize();
-            for (int i = 0; i < N; ++i)
-            {
-                for (int k = 0; k < N; ++k)
-                {
-                    if (res > grid[i, k])
-                        res = grid[i, k];
+        public int Max() {
+            var res = _matr[0, 0];
+            var n = GetSize();
+            for (var i = 0; i < n; ++i) {
+                for (var j = 0; j < n; ++j) {
+                    if (res > _matr[i, j])
+                        res = _matr[i, j];
                 }
             }
+
             return res;
         }
 
-    public String toString()
-    {
-            String res = "";
-            int N = getSize();
-            for (int i = 0; i < N; ++i)
-            {
-                for (int k = 0; k < N; ++k)
-                {
-                    res += grid[i, k] + "\t";
+        public override string ToString() {
+            var res = "";
+            var n = GetSize();
+            for (var i = 0; i < n; ++i) {
+                for (var j = 0; j < n; ++j) {
+                    res += _matr[i, j] + "\t";
                 }
+
                 res += "\n";
             }
+
             return res;
         }
     }

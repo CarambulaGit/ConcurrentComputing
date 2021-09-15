@@ -1,32 +1,32 @@
 ﻿using System;
 using System.Threading;
-using static lab3.Lab3;
+using static Lab3.Lab3;
 
-namespace lab3
+namespace Lab3
 {
     public class Function3
     {
         public void Run()
         {
-            lock (Lab3.locker)
+            lock (Lab3.Locker)
             {
                 // F3 3.14  T = (O + P) * (ML * MS)
                 
                 //Thread.Sleep(1000);
-                Vector P = new Vector(N);
-                Vector O = new Vector(N);
-                Matrix ML = new Matrix(N);
-                Matrix MS = new Matrix(N);
+                var p = new Vector(N);
+                var o = new Vector(N);
+                var ml = new Matrix(N);
+                var ms = new Matrix(N);
                 Vector result;
 
-                P.FillVectorWithNumber(1);
-                O.FillVectorWithNumber(1);
-                ML.FillMatrixWithNumber(1);
-                MS.FillMatrixWithNumber(1);
+                p.FillVectorWithNumber(1);
+                o.FillVectorWithNumber(1);
+                ml.FillMatrixWithNumber(1);
+                ms.FillMatrixWithNumber(1);
 
                 Console.WriteLine("Function 3 start");
-                result = ML.multiply(MS).multiply(O.sum(P));
-                Console.WriteLine("Function 3 result \n" + result.toString());
+                result = ml.Multiply(ms).Multiply(o.Sum(p));
+                Console.WriteLine("Function 3 result \n" + result.ToString());
                 Console.WriteLine("Function 3 end \n");
             }
         }

@@ -1,32 +1,29 @@
 ﻿using System;
 using System.Threading;
-using static lab3.Lab3;
 
-namespace lab3
+namespace Lab3
 {
     public class Function1
     { 
         public void Run()
         {
             //F1  1.2 C = A + B*(MO*ME) 
-           lock (Lab3.locker)
+           lock (Lab3.Locker)
            {
                 //Thread.Sleep(1000);
-                Vector A = new Vector(N);
-                Vector B = new Vector(N);
-                Matrix MO = new Matrix(N);
-                Matrix ME = new Matrix(N);
-               
-                Vector result;
+                var a = new Vector(Lab3.N);
+                var b = new Vector(Lab3.N);
+                var mo = new Matrix(Lab3.N);
+                var me = new Matrix(Lab3.N);
 
-                A.FillVectorWithNumber(1);
-                B.FillVectorWithNumber(1);
-                MO.FillMatrixWithNumber(1);
-                ME.FillMatrixWithNumber(1);
+                a.FillVectorWithNumber(1);
+                b.FillVectorWithNumber(1);
+                mo.FillMatrixWithNumber(1);
+                me.FillMatrixWithNumber(1);
 
                 Console.WriteLine("Function 1 start");
-                result = A.sum(MO.multiply(ME).multiply(B));
-                Console.WriteLine("Function 1 result \n" + result.toString());
+                var result = a.Sum(mo.Multiply(me).Multiply(b));
+                Console.WriteLine("Function 1 result \n" + result.ToString());
                 Console.WriteLine("Function 1 end \n");
            }
         }

@@ -1,103 +1,77 @@
 ﻿using System;
-using static lab3.Lab3;
+using System.Linq;
+using static Lab3.Lab3;
 
-namespace lab3
-{
+namespace Lab3 {
     public class Vector {
+        private int[] _vect;
 
-        private long[] grid;
+        public Vector(int[] arr) => _vect = arr;
 
-        public Vector(int N) {
-            grid = new long[N];
-            Random r = new Random();
-            for (int i = 0; i < N; ++i)
-                grid[i] = r.Next(20);
+        public Vector(int n) {
+            _vect = new int[n];
+            var r = new Random();
+            for (var i = 0; i < n; ++i)
+                _vect[i] = r.Next(20);
         }
 
-        public void FillVectorWithNumber(int number)
-        {
-            for (var i = 0; i < N; i++)
-            {
-               grid[i] = number;
+        public void FillVectorWithNumber(int number) {
+            for (var i = 0; i < N; i++) {
+                _vect[i] = number;
             }
         }
 
-        public Vector(long[] grid) {
-            this.grid = grid;
+
+        public int GetElem(int index) => _vect[index];
+
+        public Vector Sum(Vector v) {
+            var n = _vect.Length;
+            var vect = new int[n];
+            for (var i = 0; i < n; ++i)
+                vect[i] = _vect[i] + v._vect[i];
+            return new Vector(vect);
         }
 
-        public int getSize() {
-            return grid.Length;
+        public Vector Sub(Vector v) {
+            var n = _vect.Length;
+            var vect = new int[n];
+            for (var i = 0; i < n; ++i)
+                vect[i] = _vect[i] - v._vect[i];
+            return new Vector(vect);
         }
 
-        public long get(int i) {
-            return grid[i];
-        }
-
-        public Vector sum(Vector v) {
-            int N = getSize();
-            long[] newGrid = new long[N];
-            for (int i = 0; i < N; ++i)
-                newGrid[i] = grid[i] + v.get(i);
-            return new Vector(newGrid);
-        }
-
-        public Vector sub(Vector v)
-        {
-            int N = getSize();
-            long[] newGrid = new long[N];
-            for (int i = 0; i < N; ++i)
-                newGrid[i] = grid[i] - v.get(i);
-            return new Vector(newGrid);
-        }
-
-        public long multiply(Vector v)
-        {
-            int N = getSize();
-            long newGrid = new long();
-            for (int i = 0; i < N; ++i)
-            {
-                newGrid = grid[i] * v.get(i);
+        public int Multiply(Vector v) {
+            var n = _vect.Length;
+            var res = 0;
+            for (var i = 0; i < n; ++i) {
+                res += _vect[i] * v._vect[i];
             }
-            return newGrid;
+
+            return res;
         }
 
-        public Vector multiply(long a)
-        {
-            int N = getSize();
-            long[] newGrid = new long[N];
-            for (int i = 0; i < N; ++i)
-            {
-                newGrid[i] = grid[i] * a;
+        public Vector Multiply(int a) {
+            var n = _vect.Length;
+            var vect = new int[n];
+            for (var i = 0; i < n; ++i) {
+                vect[i] = _vect[i] * a;
             }
-            return new Vector(newGrid);
+
+            return new Vector(vect);
         }
 
-        public Vector sort() {
-            int N = getSize();
-            long[] newGrid = (long[]) grid.Clone();
-            for (int i = 0; i < N; ++i)
-            {
-                for (int k = 0; k < N - i - 1; ++k)
-                {
-                    if (newGrid[k] > newGrid[k + 1])
-                    {
-                        long t = newGrid[k];
-                        newGrid[k] = newGrid[k + 1];
-                        newGrid[k + 1] = t;
-                    }
-                }
-            }
-            return new Vector(newGrid);
+        public Vector Sort() {
+            var buf = (Vector) _vect.Clone();
+            Array.Sort(buf._vect);
+            return buf;
         }
 
-    public String toString() {
-            String res = "";
-            int N = getSize();
-            for (int i = 0; i < N; ++i)
-                res += grid[i] + " ";
+        public override string ToString() {
+            var res = "";
+            var n = _vect.Length;
+            for (var i = 0; i < n; ++i)
+                res += _vect[i] + " ";
             return res;
         }
     }
-
 }
