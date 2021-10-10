@@ -204,7 +204,7 @@ public class Data {
         int[][] c = new int[n][n];
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
-                c[i][j] -= ma[i][j] + mb[i][j];
+                c[i][j] = ma[i][j] - mb[i][j];
             }
         }
         return c;
