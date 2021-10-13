@@ -64,17 +64,15 @@ Vector* Vector::multiply(long* a) {
 	return newVector;
 }
 
-Vector* Vector::multiply(Vector* v) {
+long Vector::multiply(Vector* v) {
 	int N = getSize();
-	long* newGrid = new long[N];
+	long result = 0L;
 	for (int i = 0; i < N; ++i) {
-		newGrid[i] = v->get(i) * grid[i];
+		result += v->get(i) * grid[i];
 	}
-	Vector* newVector = new Vector(newGrid, N);
-	delete[] newGrid;
-	return newVector;
-}
 
+	return result;
+}
 
 Vector* Vector::sort() {
 	int N = getSize();

@@ -18,6 +18,8 @@ public:
 	Vector* multiply(Vector* v);
 	Matrix* multiply(long* a);
 	Matrix* sum(Matrix* m);
+	Matrix* sub(Matrix* m);
+	Matrix* sort();
 	long get_min();
 	long get_max();
 	string toString();

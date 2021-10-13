@@ -4,6 +4,19 @@
 #include "F3.h"
 
 const int N = 2;
+/*
+ * Parallel programming.
+ * Labwork 3. WinAPI.
+ *
+ * F1  1.12  A = B + C + D * (MD * ME)
+ * F2  2.24  MG = sort(MF - MH * MK)
+ * F3  3.21  S = sort(O * MO) * (MS * MT)
+ *
+ * Didenko Vladyslav
+ * IO-91
+ * 10.10.2021
+ */
+
 
 int main() {
     cout << "Lab 4 start" << endl << endl;

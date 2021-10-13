@@ -1,8 +1,22 @@
+﻿#include <iostream>
 #include "F1.h"
 #include "F2.h"
 #include "F3.h"
 
 const int N = 2;
+/*
+ * Parallel programming.
+ * Labwork 3. WinAPI.
+ *
+ * F1  1.12  A = B + C + D * (MD * ME)
+ * F2  2.24  MG = sort(MF - MH * MK)
+ * F3  3.21  S = sort(O * MO) * (MS * MT)
+ *
+ * Didenko Vladyslav
+ * IO-91
+ * 10.10.2021
+ */
+
 
 int main() {
     cout << "Lab 4 start" << endl << endl;
@@ -17,13 +31,6 @@ int main() {
     threads[2] = CreateThread(NULL, 0, F3::startThread, f3, 3, &tid[2]);
 
     WaitForMultipleObjects(3, threads, true, INFINITE);
-
-    Vector* rf1 = f1->getResult();
-    cout << "Thread 1 result: " << endl << rf1->toString() << endl;
-    Matrix* rf2 = f2->getResult();
-    cout << "Thread 2 result: " << endl << rf2->toString() << endl;
-    Vector* rf3 = f3->getResult();
-    cout << "Thread 3 result: " << endl << rf3->toString() << endl;
 
     cout << endl << "Lab 4 end" << endl << endl << "Press Enter...";
     string t;

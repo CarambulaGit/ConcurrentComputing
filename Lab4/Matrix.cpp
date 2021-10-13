@@ -105,6 +105,46 @@ Matrix* Matrix::sum(Matrix* m) {
 	return newMatrix;
 }
 
+Matrix* Matrix::sub(Matrix* m) {
+	int N = getSize();
+	long** newGrid = new long*[N];
+	for (int i = 0; i < N; ++i)
+		newGrid[i] = new long[N];
+	for (int i = 0; i < N; ++i) {
+		for (int k = 0; k < N; ++k) {
+			newGrid[i][k] = grid[i][k] - m->get(i, k);
+		}
+	}
+	Matrix* newMatrix = new Matrix(newGrid, N);
+	for (int i = 0; i < N; ++i)
+		delete[] newGrid[i];
+	delete[] newGrid;
+	return newMatrix;
+}
+
+Matrix* Matrix::sort() {
+	int N = getSize();
+	long** newGrid = new long*[N];
+	for (int i = 0; i < N; ++i)
+		newGrid[i] = grid[i];
+	for (int j = 0; j < N; ++j){
+		for (int i = 0; i < N; ++i) {
+			for (int k = 0; k < N - i - 1; ++k) {
+				if (newGrid[j][k] > newGrid[j][k + 1]) {
+					long t = newGrid[j][k];
+					newGrid[j][k] = newGrid[j][k + 1];
+					newGrid[j][k + 1] = t;
+				}
+			}
+		}
+	}
+	Matrix* newMatrix = new Matrix(newGrid, N);
+	for (int i = 0; i < N; ++i)
+		delete[] newGrid[i];
+	delete[] newGrid;
+	return newMatrix;
+}
+
 long Matrix::get_min() {
 	long res = grid[0][0];
 	int N = getSize();

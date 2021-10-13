@@ -13,15 +13,17 @@ DWORD WINAPI F2::startThread(void* param) {
 	return This->run();
 }
 
+//  F2  2.24  MG = sort(MF - MH * MK)
+
 DWORD F2::run() {
 	cout << "Task 2 start\n";
-	long *k = new long(N);
-	Matrix *MF = new Matrix(N), *MG = new Matrix(N);
-	result = MF->multiply(MG)->multiply(k);
+	Matrix *MF = new Matrix(N), *MH = new Matrix(N), *MK = new Matrix(N);
+	result = MF->sub(MH->multiply(MK));
+	result = result->sort();
 	cout << "Thread 2 result:\n" << endl << result->toString() << endl;
 	cout << "Task 2 end\n";
 	delete MF;
-	delete MG;
-	delete k;
+	delete MH;
+	delete MK;
 	return 0;
 }
